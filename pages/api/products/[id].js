@@ -22,6 +22,9 @@ export default async function handler(req, res) {
   }
 
   if (req.method === "PUT") {
+    const token = req.cookies.revoshop_token;
+    if (!token) return res.status(401).json({ message: "Unauthorized" });
+
     const { title, price, description, categoryId, images } = req.body;
 
     // Validate
@@ -62,6 +65,9 @@ export default async function handler(req, res) {
   }
 
   if (req.method === "DELETE") {
+    const token = req.cookies.revoshop_token;
+    if (!token) return res.status(401).json({ message: "Unauthorized" });
+
     try {
       const apiRes = await fetch(`${API_BASE}/${id}`, {
         method: "DELETE",

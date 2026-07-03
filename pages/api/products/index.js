@@ -13,6 +13,9 @@ export default async function handler(req, res) {
   }
 
   if (req.method === "POST") {
+    const token = req.cookies.revoshop_token;
+    if (!token) return res.status(401).json({ message: "Unauthorized" });
+
     const { title, price, description, categoryId, images } = req.body;
 
     // Validate required fields
